@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>东京 · 2026-04-29 · Polymarket 天气市场</title>
+<style>
+:root {
+  --bg: #f8faf9;
+  --paper: #ffffff;
+  --paper-soft: #f5f8f7;
+  --paper-blue: #f6f9fa;
+  --ink: #152521;
+  --muted: #63746f;
+  --subtle: #91a19b;
+  --line: #dcebe5;
+  --line-strong: #c7ded6;
+  --accent: #4f8f7a;
+  --accent-2: #52758c;
+  --tint: #eef7f2;
+  --tint-2: #f3f7f8;
+  --danger: #c75d4b;
+  --warning: #a77a1c;
+  --mobile-card-gap: 10px;
+}
+* { box-sizing: border-box; }
+html {
+  background: var(--bg);
+  color: var(--ink);
+}
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(79, 143, 122, .07), transparent 24rem),
+    linear-gradient(180deg, #ffffff 0%, var(--bg) 42rem);
+  font-family: "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  letter-spacing: 0;
+}
+.report-shell {
+  position: relative;
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 18px 0 44px;
+}
+.report-shell::before {
+  content: "";
+  display: block;
+  height: 5px;
+  margin-bottom: 18px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.hero-summary {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding: 16px 0 20px;
+  border-bottom: 1px solid var(--line);
+}
+.hero-copy {
+  min-width: 0;
+}
+.fresh-edition {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+.fresh-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+.fresh-chips span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .82);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  box-shadow: 0 8px 24px rgba(44, 82, 91, .05);
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  color: var(--accent-2);
+  font-size: 12px;
+  font-weight: 800;
+}
+.kicker::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+h1 {
+  max-width: 820px;
+  margin: 0;
+  font-size: clamp(34px, 8vw, 64px);
+  line-height: 1.08;
+  letter-spacing: 0;
+  font-weight: 850;
+}
+.lede {
+  max-width: 760px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.78;
+}
+.hero-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--line);
+  box-shadow: 0 18px 48px rgba(44, 82, 91, .08);
+}
+.hero-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--accent);
+}
+.hero-metric {
+  min-width: 0;
+  padding: 15px 15px 14px;
+  background: rgba(255, 255, 255, .96);
+}
+.label {
+  display: block;
+  color: var(--subtle);
+  font-size: 11px;
+  line-height: 1.35;
+}
+.value {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.signal-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mobile-card-gap);
+  margin: 18px 0 22px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-soft);
+  box-shadow: 0 18px 48px rgba(44, 82, 91, .08);
+}
+.signal-card {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  min-width: 0;
+  padding: 14px 15px;
+  border: 1px solid rgba(255, 255, 255, .74);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .74);
+}
+.signal-card .label {
+  color: var(--subtle);
+}
+.signal-card .value {
+  margin-top: 0;
+  color: var(--ink);
+  text-align: right;
+}
+.desktop-report-grid {
+  display: grid;
+  gap: 18px;
+  counter-reset: report-section;
+}
+.main-flow,
+.support-flow {
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+.report-section {
+  position: relative;
+  counter-increment: report-section;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--line);
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 850;
+}
+.section-heading::before {
+  content: counter(report-section, decimal-leading-zero);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 24px;
+  border: 1px solid rgba(27, 138, 114, .24);
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--tint);
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 11px;
+  font-weight: 850;
+}
+.prose-list {
+  display: grid;
+  gap: 10px;
+  max-width: 820px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.prose-list li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.78;
+}
+.prose-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .72em;
+  width: 8px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent-2);
+}
+.baseline-grid {
+  display: grid;
+  gap: 10px;
+}
+.statement {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .78);
+  box-shadow: 0 10px 28px rgba(44, 82, 91, .05);
+}
+.statement strong {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--accent);
+  font-size: 12px;
+}
+.statement p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+.trade-grid {
+  display: grid;
+  gap: 12px;
+}
+.trade-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(44, 82, 91, .08);
+}
+.trade-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--accent);
+}
+.trade-card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 17px 18px 15px 22px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-soft);
+}
+.trade-card h3 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 850;
+}
+.role {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+.price-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 14px 14px 14px 19px;
+  background: var(--paper-soft);
+}
+.price-pill {
+  min-width: 0;
+  padding: 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .9);
+}
+.price-pill span:first-child {
+  display: block;
+  color: var(--subtle);
+  font-size: 11px;
+}
+.price-pill span:last-child {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 850;
+  overflow-wrap: anywhere;
+}
+.price-ask {
+  border-color: rgba(27, 138, 114, .34);
+  background: rgba(238, 247, 242, .82);
+}
+.price-ask span:last-child {
+  color: var(--accent);
+}
+.card-body {
+  display: grid;
+  gap: 10px;
+  padding: 16px 18px 18px 22px;
+}
+.card-body p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.68;
+}
+.card-body b {
+  color: var(--accent-2);
+}
+.risk-list .prose-list li {
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .82);
+}
+.risk-list .prose-list li::before {
+  display: none;
+}
+.risk-list .risk-high b { color: var(--danger); }
+.risk-list .risk-medium b { color: var(--warning); }
+.risk-list .risk-low b { color: var(--accent-2); }
+.soft-rail-note {
+  padding: 12px 13px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (min-width: 900px) {
+  .report-shell {
+    width: min(1160px, calc(100% - 56px));
+    padding: 30px 0 64px;
+  }
+  .hero-summary {
+    grid-template-columns: minmax(0, 1.1fr) minmax(360px, .9fr);
+    gap: 32px;
+    align-items: end;
+    padding: 28px 0 30px;
+  }
+  .hero-card {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .signal-strip {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0;
+    margin: 20px 0 30px;
+    padding: 0;
+  }
+  .signal-card {
+    display: block;
+    min-height: 88px;
+    border-width: 0 1px 0 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .signal-card:last-child { border-right: 0; }
+  .signal-card .value {
+    margin-top: 7px;
+    text-align: left;
+  }
+  .desktop-report-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(340px, .95fr);
+    gap: 28px;
+    align-items: start;
+  }
+  .support-flow {
+    position: sticky;
+    top: 18px;
+  }
+  .baseline-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .price-row {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  body {
+    background: linear-gradient(180deg, #ffffff 0%, var(--bg) 30rem);
+  }
+  .report-shell {
+    width: min(100% - 20px, 1120px);
+    padding: 12px 0 34px;
+  }
+  .report-shell::before {
+    height: 5px;
+    margin-bottom: 12px;
+  }
+  .hero-summary {
+    gap: 14px;
+    padding-top: 14px;
+  }
+  .fresh-edition {
+    margin-bottom: 8px;
+  }
+  .fresh-chips {
+    margin-bottom: 12px;
+  }
+  .kicker {
+    margin-bottom: 9px;
+    font-size: 11px;
+  }
+  h1 {
+    font-size: clamp(30px, 11vw, 42px);
+    line-height: 1.08;
+  }
+  .lede {
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.62;
+  }
+  .hero-card {
+    grid-template-columns: 1fr 1fr;
+  }
+  .optional-event { grid-column: 1 / -1; }
+  .hero-metric.metric-confidence {
+    grid-column: 1 / -1;
+  }
+  .hero-metric {
+    padding: 11px 12px;
+  }
+  .signal-strip {
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 8px;
+  }
+  .signal-card {
+    display: block;
+    padding: 11px 12px;
+  }
+  .signal-wide {
+    grid-column: 1 / -1;
+  }
+  .signal-card .value {
+    margin-top: 4px;
+    text-align: left;
+  }
+  .report-section {
+    padding-top: 17px;
+  }
+  .section-heading {
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+  .prose-list li,
+  .statement p,
+  .card-body p {
+    font-size: 14px;
+    line-height: 1.62;
+  }
+  .trade-card header {
+    align-items: flex-start;
+    padding: 14px 13px 13px 18px;
+  }
+  .trade-card h3 {
+    font-size: 18px;
+  }
+  .price-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    padding: 10px 10px 10px 15px;
+  }
+  .price-pill {
+    padding: 10px;
+  }
+  .price-pill span:last-child {
+    font-size: 16px;
+  }
+  .card-body {
+    padding: 14px 13px 15px 18px;
+  }
+}
+</style>
+</head>
+<body>
+<main class="report-shell fresh-report">
+<header class="hero-summary"><div class="hero-copy"><p class="fresh-edition">Fresh Weather Note</p><div class="fresh-chips"><span>Weather Market</span><span>Polymarket</span></div><p class="kicker">Polymarket 天气市场 · 研究报告</p><h1>20°C 已接近锁定，21°C 只剩很小的下一报上跳空间</h1><p class="lede">截至 2026-04-29 15:00 JST，RJTT 最新机场实况为 18.0°C，结算预览仍停在 20.0°C，20°C 更可能是日终落点，但结算参考未最终确认，短线追价优势不足。</p></div><div class="hero-card" aria-label="报告摘要"><div class="hero-metric"><span class="label">城市</span><span class="value">东京</span></div><div class="hero-metric"><span class="label">日期</span><span class="value">2026-04-29</span></div><div class="hero-metric"><span class="label">主线</span><span class="value">20°C 温度档</span></div><div class="hero-metric"><span class="label">结论</span><span class="value">watch</span></div><div class="hero-metric metric-confidence"><span class="label">置信度</span><span class="value">medium</span></div><div class="hero-metric optional-event"><span class="label">事件</span><span class="value">highest-temperature-in-tokyo-on-april-29-2026</span></div></div></header>
+<section class="signal-strip" aria-label="关键事实"><div class="signal-card"><span class="label">站点</span><span class="value">RJTT</span></div><div class="signal-card"><span class="label">已知最高</span><span class="value">20.5°C</span></div><div class="signal-card"><span class="label">最新温度</span><span class="value">18°C</span></div><div class="signal-card signal-wide"><span class="label">最新时间</span><span class="value">2026-04-29 15:00 JST</span></div><div class="signal-card"><span class="label">结算预览</span><span class="value">20°C</span></div><div class="signal-card"><span class="label">结算状态</span><span class="value">preview</span></div></section>
+<div class="desktop-report-grid">
+<div class="main-flow">
+<section class="report-section"><h2 class="section-heading">当前市场在交易什么</h2><ul class="prose-list"><li>完整温度档是 14°C 及以下到 24°C 及以上，共 11 档；低于 20°C 的档位已无交易意义，20°C 是唯一主线，21°C 是仅剩的 +1°C 小概率争议，22°C 及以上缺少现实天气支持且盘口也难执行。</li><li>市场主要在交易已见顶与还有 +1°C 空间，其次是 21°C 盘口价差造成的流动性失真。</li><li>主分歧：20°C 是否已经成为最终高温，还是后续机场实况仍有一次回升到 21°C 的空间。</li><li>20°C 的买一价 99.8%、卖一价 99.9%，价差很小但已接近满价，吃单空间几乎没有；21°C 买一价 0.1%、卖一价 0.6%，价差相对概率很宽，最近成交已从前一小时走弱，不能只看 0.5% 最新成交判断便宜。22°C 及以上没有买一价，真实交易优势难以评估。温度档完整且关键盘口可用，但 21°C 以上执行风险明显更高。</li></ul></section>
+<section class="report-section"><h2 class="section-heading">重点温度档</h2><div class="trade-grid"><article class="trade-card"><header><h3>20°C 温度档</h3><div class="role">主线</div></header><div class="price-row"><div class="price-pill price-fair"><span>合理估值</span><span>98%-99.5%</span></div><div class="price-pill price-reference"><span>参考</span><span>99.5% 合约价格；99.9% 买卖中间价；最新成交 BUY@99.9%</span></div><div class="price-pill price-bid"><span>买一价</span><span>0.998</span></div><div class="price-pill price-ask"><span>卖一价</span><span>0.999</span></div><div class="price-pill price-spread"><span>买卖价差</span><span>0.001</span></div></div><div class="card-body"><p><b>情景</b>：下一条 RJTT 机场实况仍为 18°C 或 19°C，结算预览不高于 20.0°C；已见顶路径继续强化，20°C 维持高概率，但可交易利润更窄。</p><p><b>重估</b>：条件合理估值：99%-99.8%；退出参考：触发后参考买一价 99.8%-99.9%，不把最近成交当作保证退出价；重定价：0pt 到 +1pt；edge：不够。</p><p><b>操作</b>：不适合现在用 99.9% 吃单追高；已有仓位更偏观察或等待流动性退出。</p><p><b>触发</b>：只有价格回落到 99.0% 附近，且下一条机场实况未反弹，才有较小短线空间。</p><p><b>退出</b>：若下一次刷新后买一价仍在 99.8%-99.9%，短线仓位应优先考虑退出。</p><p><b>失效</b>：RJTT 下一报回到 20°C 或结算预览上修到 21°C，20°C 的接近锁定判断失效。</p><p><b>执行风险</b>：盘口可交易性一般，价差很小但价格已接近满值，吃单后的上涨空间不足。</p></div></article><article class="trade-card"><header><h3>21°C 温度档</h3><div class="role">上跳尾部</div></header><div class="price-row"><div class="price-pill price-fair"><span>合理估值</span><span>1%-3%</span></div><div class="price-pill price-reference"><span>参考</span><span>0.4% 归一化概率；0.5% 最新成交；买卖中间价 0.4%</span></div><div class="price-pill price-bid"><span>买一价</span><span>0.001</span></div><div class="price-pill price-ask"><span>卖一价</span><span>0.006</span></div><div class="price-pill price-spread"><span>买卖价差</span><span>0.005</span></div></div><div class="card-body"><p><b>情景</b>：下一条 RJTT 机场实况回升到 19°C 或 20°C，或结算预览刷新显示高温逼近 21°C；市场会重新给 +1°C 空间定价，但这仍不是最终结算确认。</p><p><b>重估</b>：条件合理估值：5%-10%；退出参考：触发后参考预期买一价 3%-6%，用更保守可成交价估算退出；重定价：+2pt 到 +5pt；edge：弱正。</p><p><b>操作</b>：只适合极小仓位挂低价观察，不适合直接吃 0.6% 卖一价。</p><p><b>触发</b>：挂单低于 0.3%-0.4%，并且下一条天气刷新前仍有回暖信号时才考虑。</p><p><b>退出</b>：若下一报回升或盘口主动买入把买一价抬到 3%-6%，短线优先退出。</p><p><b>失效</b>：下一报继续 18°C 或更低、结算预览仍为 20.0°C，21°C 反弹交易失效。</p><p><b>执行风险</b>：价差相对很宽，卖一量只有 90.03，最近 60 分钟价格明显下跌，执行风险较高。</p></div></article><article class="trade-card"><header><h3>22°C 温度档</h3><div class="role">排除观察</div></header><div class="price-row"><div class="price-pill price-fair"><span>合理估值</span><span>0%-1%</span></div><div class="price-pill price-reference"><span>参考</span><span>0.1% 归一化概率；0.2% 最新成交</span></div><div class="price-pill price-bid"><span>买一价</span><span>-</span></div><div class="price-pill price-ask"><span>卖一价</span><span>0.001</span></div><div class="price-pill price-spread"><span>买卖价差</span><span>0.001</span></div></div><div class="card-body"><p><b>情景</b>：需要 RJTT 连续明显回升并接近 21°C，才会重新评估 22°C；目前没有足够天气证据支持 +2°C 或以上。</p><p><b>重估</b>：条件合理估值：1%-2%；退出参考：即使上修，也需要先看到买一价恢复；否则无法可靠退出；重定价：不明确；edge：无。</p><p><b>操作</b>：不参与。</p><p><b>触发</b>：只有出现连续回升且盘口恢复买一价后才重新看。</p><p><b>退出</b>：若误入场，出现买一价时优先退出，不等待结算。</p><p><b>失效</b>：RJTT 继续维持 18°C-19°C 或结算预览不变，则继续视为低概率。</p><p><b>执行风险</b>：没有买一价，真实交易优势难以评估，不适合交易。</p></div></article></div></section>
+<section class="report-section"><h2 class="section-heading">日终落点与盘中状态</h2><div class="baseline-grid"><div class="statement"><strong>日终基线</strong><p>温度档：20°C 温度档；合理区间：98%-99.5%；结算预览为 20.0°C，RJTT 最新机场实况已回落到 18.0°C，12:30 JST 后连续走弱；机械结论已把 21°C 及以上列为结算预览削弱档，20°C 仍是日终主路径。</p></div><div class="statement"><strong>盘中拆解</strong><p>P(已见顶)：96%；P(+1度)：3%；P(+2度或以上)：1%；当前更像已经见顶：RJTT 从 12:30 JST 的 20.0°C 回落到 15:00 JST 的 18.0°C，且东北风、云量和周边低日照不支持快速再冲高。+1°C 仍保留小概率，是因为结算预览不是最终结算且日内仍有刷新；+2°C 或以上需要明显反常回暖，证据不足。</p></div></div></section>
+<section class="report-section"><h2 class="section-heading">盘中操作判断</h2><ul class="prose-list"><li>短线观望为主。未来 1-3 小时最值得盯的是 21°C 是否因下一条机场实况回升而短线重估；20°C 虽然最可能胜出，但当前卖一价接近满价，新增进场空间太小。</li><li>入场条件：20°C 只有回落到 99.0% 附近且下一报不反弹才考虑；21°C 只在低于 0.3%-0.4% 挂单且下一报前仍有回暖迹象时观察。</li><li>退出条件：20°C 在下一次刷新后仍接近 99.8%-99.9% 时退出短线；21°C 若因下一报回升而买一价抬到 3%-6% 优先退出。</li><li>失效条件：RJTT 下一报回升到 20°C 或结算预览上修到 21°C，会削弱 20°C 的短线确定性；若下一报继续 18°C 或更低，21°C 短线机会基本消失。</li></ul></section>
+<section class="report-section"><h2 class="section-heading">情景推演</h2><ul class="prose-list"><li>继续持平或偏弱：下一条 RJTT 机场实况维持 18°C-19°C，结算预览仍为 20.0°C；20°C 维持 99% 附近高位，21°C 继续被压到接近零，22°C 及以上没有交易意义；影响：20°C 温度档、21°C 温度档、22°C 温度档。</li><li>下一组刷新上跳：RJTT 回升到 20°C，或结算预览显示高温接近 21°C；21°C 会从极低位短线反弹，20°C 从接近满价回落，但仍不能直接等同于最终结算改变；影响：20°C 温度档、21°C 温度档。</li><li>转弱或封顶信号：RJTT 降到 18°C 或更低，东北风维持，云量不改善，结算预览继续停在 20.0°C；市场会进一步交易已见顶，20°C 保持主线，21°C 的买盘更容易撤退；影响：20°C 温度档、21°C 温度档、22°C 温度档、23°C 温度档、24°C 及以上档。</li></ul></section>
+</div>
+<aside class="support-flow">
+<div class="soft-rail-note">观察侧重点 · 时间窗口 / 信号 / 风险</div>
+<section class="report-section"><h2 class="section-heading">今天最高温时间窗口</h2><ul class="prose-list"><li>本地时间：12:00-13:00 JST；中国时间：11:00-12:00 CST；置信度：medium。</li><li>依据：RJTT 在 12:30 JST 报出 20.0°C，随后 13:00-15:00 JST 从 19.0°C 降到 18.0°C。</li><li>依据：结算预览高温为 20.0°C，时间同为 12:30 JST。</li><li>依据：15:00 JST 的风向仍偏东北，风速 13kt，云量为 BKN，对下午再升温不友好。</li><li>不确定性：JMA AMeDAS 给出 20.5°C 的日高，但它不是 Polymarket 当前结算预览。</li><li>不确定性：若下一条机场实况突然回到 19°C 或 20°C，21°C 的尾部机会会被短线重估。</li><li>不确定性：结算预览刷新前，不能把 12:30 JST 的 20.0°C 当作最终结果。</li></ul></section>
+<section class="report-section"><h2 class="section-heading">接下来最该盯的信号</h2><ul class="prose-list"><li>下一条 RJTT 机场实况：这是判断是否仍有 +1°C 空间的第一触发点；继续 18°C-19°C 支持已见顶，回到 20°C 会抬高 21°C 短线概率。</li><li>特殊报文或风向变化：若出现明显风向切换或局地变化，可能改变下午回暖空间；目前 40°附近东北风对升温不利。</li><li>结算预览刷新：当前结算参考是预览，不是最终结果；若预览从 20.0°C 上修，市场会快速重估。</li><li>JMA AMeDAS 刷新：它提示过 20.5°C 的日高，可作辅助对照，但不能替代 Polymarket 结算参考。</li><li>雷达和云图更新：只作为判断云量、降水和日照变化的背景，不能当作结算事实。</li><li>盘口撤单或主动成交：21°C 盘口价差宽、深度有限，主动买卖会比展示价更能说明短线真实定价。</li><li>接近结算窗口时的流动性变化：高概率档接近满价时，流动性变化会放大退出风险。</li></ul></section>
+<section class="report-section risk-list"><h2 class="section-heading">风险信号</h2><ul class="prose-list"><li class="risk-high"><b>高</b>：结算参考未完全确认，不能把当前预览值视为最终结算结果。</li><li class="risk-medium"><b>中</b>：机场实况用于判断升温走势，但不等同于最终结算事实。</li><li class="risk-medium"><b>中</b>：雷达、云图和模型格点只作为辅助背景，不作为结算事实。</li><li class="risk-medium"><b>中</b>：下一组天气刷新可能改变主路径和市场定价。</li></ul></section>
+</aside>
+</div>
+</main>
+</body>
+</html>
